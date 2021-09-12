@@ -74,6 +74,7 @@ module sha256_core(
             a_q <= a_d; b_q <= b_d; c_q <= c_d; d_q <= d_d;
             e_q <= e_d; f_q <= f_d; g_q <= g_d; h_q <= h_d;
             round <= round + 1;
+// addition 
 //            $display("round : %d", round);
         end
         

@@ -25,6 +25,7 @@ module sha256_EP1 (
           );
 
     assign EP1 = ({x[5:0], x[31:6]} ^ {x[10:0], x[31:11]} ^ {x[24:0], x[31:25]});
+// OR, OR
 
 endmodule
 
@@ -35,6 +36,7 @@ module Ch #(parameter WORDSIZE=0) (
     );
 
     assign Ch = ((x & y) ^ (~x & z));
+//AND, OR, NEG, AND
 
 endmodule
 
@@ -44,7 +46,7 @@ module sha256_EP0 (
     );
 
     assign EP0 = ({x[1:0], x[31:2]} ^ {x[12:0], x[31:13]} ^ {x[21:0], x[31:22]});
-
+//OR, OR
 endmodule
       
 // Maj(x,y,z)
@@ -54,7 +56,7 @@ module Maj #(parameter WORDSIZE=0) (
     );
 
     assign Maj = (x & y) ^ (x & z) ^ (y & z);
-
+//AND OR AND OR AND
 endmodule
 
 module sha256_hash_helper #(parameter WORDSIZE=0)(
@@ -65,13 +67,17 @@ module sha256_hash_helper #(parameter WORDSIZE=0)(
     );
     
     wire [WORDSIZE-1:0] T1 = h_in + EP1_e + Ch_e_f_g + Kj + Wj;
+//ADD, ADD, ADD, ADD
     wire [WORDSIZE-1:0] T2 = EP0_a + Maj_a_b_c;
+//ADD
 
     assign a_out = T1 + T2;
+//ADD
     assign b_out = a_in;
     assign c_out = b_in;
     assign d_out = c_in;
     assign e_out = d_in + T1;
+//ADD
     assign f_out = e_in;
     assign g_out = f_in;
     assign h_out = g_in;
